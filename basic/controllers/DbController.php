@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\tables\Tasks;
+use app\models\tables\Users;
 use yii\web\Controller;
 
 class DbController extends Controller
@@ -79,8 +80,12 @@ class DbController extends Controller
 //        var_dump($result);
 //        exit;
 
-        $result = Tasks::findOne(1);
-        var_dump($result->status);
+//        $result = Tasks::findOne(1);
+//        var_dump($result->status);
+//        exit;
+
+        $result = Users::find()->all();
+        var_dump($result);
         exit;
     }
 }
