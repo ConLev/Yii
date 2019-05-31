@@ -1,5 +1,12 @@
-<!--<h1>Yii 2</h1>-->
-<!--<p>Lesson 1</p>-->
+<?php
+/** @var  \app\models\Test $model */
 
-<h1><?= $title ?></h1>
-<p> <?= $content ?></p>
+use yii\helpers\Html;
+use \yii\widgets\ActiveForm;
+
+$form = ActiveForm::begin();
+echo $form->field($model, 'title')->textInput();
+echo $form->field($model, 'content')->textInput();
+echo $form->field($model, 'count')->textInput();
+echo Html::submitButton("Push", ['class' => 'btn btn-success']);
+ActiveForm::end();

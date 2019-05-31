@@ -7,7 +7,7 @@ use yii\web\Controller;
 
 class TasksController extends Controller
 {
-    public function actionTasks()
+    public function actionIndex() //ListView
     {
         $model = new Tasks();
 
@@ -29,5 +29,10 @@ class TasksController extends Controller
         return $this->render('tasks', [
             'model' => $model,
         ]);
+    }
+
+    public function one($id) //GridView
+    {
+
     }
 }
