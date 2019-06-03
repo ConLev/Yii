@@ -2,36 +2,25 @@
 
 namespace app\controllers;
 
-use app\models\Tasks;
+use app\models\tables\Tasks;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class TasksController extends Controller
 {
-    public function actionIndex() //ListView
+    // public $layout = false;
+
+    public function actionIndex()
     {
-        $model = new Tasks();
+//        return $this->render('index');
 
-        $model->setAttributes(
-            [
-                'title' => 'Менеджер задач',
-                'content' => 'Текущие задачи',
-                'id' => 1,
-                'task' => '1. Установить фреймворк <br>2. Создать таск контроллер.<br>
-3. Создать и описать модель для сущности "задача" (Task).',
-                'performer' => 'Студент GB',
-                'run_up' => '25.05.2019',
-                'started' => '24.05.2019',
-                'Completed' => '25.05.2019',
-                'status' => 'Сдано на проверку',
-            ]
-        );
-
-        return $this->render('tasks', [
-            'model' => $model,
+        $dataProvider = new ActiveDataProvider([
+            'query' => Tasks::find()
         ]);
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
-    public function one($id) //GridView
+    public function one($id)
     {
 
     }

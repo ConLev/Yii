@@ -2,7 +2,7 @@
 
 namespace app\models\tables;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tasks".
@@ -16,8 +16,10 @@ use Yii;
  * @property int $status_id
  *
  * @property int $status
+ * @property $creator
+ * @property $responsible
  */
-class Tasks extends \yii\db\ActiveRecord
+class Tasks extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -57,13 +59,18 @@ class Tasks extends \yii\db\ActiveRecord
         ];
     }
 
-//    public function getStatus()
-//    {
-//        return 'gfggdgdtry';
-//    }
-
     public function getStatus()
     {
         return $this->hasOne(TaskStatuses::class, ['id' => 'status_id']);
+    }
+
+    public function getCreator()
+    {
+        return $this->hasOne(Users::class, ['id' => 'creator_id']);
+    }
+
+    public function getResponsible()
+    {
+        return $this->hasOne(Users::class, ['id' => 'responsible_id']);
     }
 }
