@@ -1,56 +1,54 @@
 <?php
 
-use app\widgets\Tasks;
-use yii\helpers\Html;
-use yii\grid\GridView;
+/* use app\models\tables\Tasks;
+use app\widgets\TasksPreview;
+
+$model = Tasks::findOne(1);
+
+echo TasksPreview::widget([
+    'model' => $model,
+//    'linked' => false
+]); */
+
+/** @var ActiveDataProvider $dataProvider */
+
+use app\widgets\TasksPreview;
+use yii\data\ActiveDataProvider;
+//use yii\helpers\Url;
 use yii\widgets\ListView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\filters\TasksFilter */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Tasks';
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="tasks-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?
+try {
     echo ListView::widget([
-        'itemView' => 'view',
         'dataProvider' => $dataProvider,
-        'viewParams' => [
-            'hide' => 'true'
-        ],
+        'itemView' => function ($model) {
+            return TasksPreview::widget(['model' => $model, 'linked' => true]);
+        },
+        'summary' => false,
+        'options' => [
+            'class' => 'preview-container'
+        ]
     ]);
+} catch (Exception $e) {
+}
 
-    //    echo Tasks::widget([
-    //        'label' => 'Еще нежнее!',
-    //    ]);
+?>
 
-    //    <?= GridView::widget([
-    //        'dataProvider' => $dataProvider,
-    //        'filterModel' => $searchModel,
-    //        'columns' => [
-    //            ['class' => 'yii\grid\SerialColumn'],
-    //
-    //            'id',
-    //            'name',
-    //            'description',
-    //            'creator_id',
-    //            'responsible_id',
-    //            //'deadline',
-    //            //'status_id',
-    //
-    //            ['class' => 'yii\grid\ActionColumn'],
-    //        ],
-    //    ]); ?>
-
-</div>
+<!--<div class="preview-container">-->
+<!--    --><? // foreach ($dataProvider->getModels() as $model): ?>
+<!--    <div class="task-container">-->
+<!--        --><?php
+//        /** @var bool $linked */
+//        if ($linked): ?>
+<!--        <a class="task-preview-link" href="--><? //= Url::to(['tasks/one', 'id' => $model->id]) ?><!--">-->
+<!--            --><? // endif; ?>
+<!--            <div class="task-preview">-->
+<!--                <div class="task-preview-header">--><? //= $model->name ?><!--</div>-->
+<!--                <div class="task-preview-content">--><? //= $model->description ?><!--</div>-->
+<!--                <div class="task-preview-user">--><? //= $model->responsible->username ?><!--</div>-->
+<!--            </div>-->
+<!--            --><?php //if ($linked): ?>
+<!--        </a>-->
+<!--    --><? // endif; ?>
+<!--        --><? // endforeach; ?>
+<!--    </div>-->
+<!--</div>-->
