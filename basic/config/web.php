@@ -1,5 +1,6 @@
 <?php
 
+use app\components\Bootstrap;
 use app\models\UserIdentity;
 
 $params = require __DIR__ . '/params.php';
@@ -8,12 +9,15 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'bootstrap'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        'bootstrap' => [
+            'class' => Bootstrap::class
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'KiqGIieN_S41X3pf6RzZdFuuRQkJhWaD',
