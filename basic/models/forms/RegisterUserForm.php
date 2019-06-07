@@ -11,7 +11,7 @@ class RegisterUserForm extends Model
 {
     public $username;
     public $password;
-//    public $email;
+    public $email;
 
     const EVENT_REGISTRATION_BEGIN = 'registration_begin';
     const EVENT_REGISTRATION_VALIDATE_SUCCESS = 'registration_validate_success';
@@ -20,9 +20,8 @@ class RegisterUserForm extends Model
     public function rules()
     {
         return [
-//            [['username', 'password', 'email'], 'required'],
-            [['username', 'password'], 'required'],
-//            ['email', 'email'],
+            [['username', 'password', 'email'], 'required'],
+            ['email', 'email'],
             ['password', 'string', 'min' => '8']
         ];
     }

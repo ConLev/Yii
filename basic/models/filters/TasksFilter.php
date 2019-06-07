@@ -18,7 +18,7 @@ class TasksFilter extends Tasks
     {
         return [
             [['id', 'creator_id', 'responsible_id', 'status_id'], 'integer'],
-            [['name', 'description', 'deadline'], 'safe'],
+            [['name', 'description', 'deadline', 'created', 'updated'], 'safe'],
         ];
     }
 
@@ -66,6 +66,8 @@ class TasksFilter extends Tasks
             'responsible_id' => $this->responsible_id,
             'deadline' => $this->deadline,
             'status_id' => $this->status_id,
+            'created' => $this->created,
+            'updated' => $this->updated
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

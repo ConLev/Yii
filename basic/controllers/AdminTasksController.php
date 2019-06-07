@@ -2,9 +2,13 @@
 
 namespace app\controllers;
 
+//use app\models\tables\Users;
 use Yii;
 use app\models\tables\Tasks;
 use app\models\filters\TasksFilter;
+
+//use yii\base\Event;
+//use yii\db\ActiveRecord;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,6 +69,19 @@ class AdminTasksController extends Controller
     public function actionCreate()
     {
         $model = new Tasks();
+//        $model->on(ActiveRecord::EVENT_AFTER_INSERT, function (Event $event) {
+//            /** @var Tasks $task */
+//            $task = $event->sender;
+//            /** @var Users $resposible */
+//            $responsible = $task->responsible;
+//            $creator = $task->creator;
+//            Yii::$app->mailer->compose()
+//                ->setTo($responsible->email)
+//                ->setFrom($creator->email)
+//                ->setSubject('New Task')
+//                ->setTextBody("Dear {$responsible->username}, new task {$task->id} created")
+//                ->send();
+//        });
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

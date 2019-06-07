@@ -18,7 +18,7 @@ class UsersFilter extends Users
     {
         return [
             [['id'], 'integer'],
-            [['username', 'password'], 'safe'],
+            [['username', 'password', 'email'], 'safe'],
         ];
     }
 

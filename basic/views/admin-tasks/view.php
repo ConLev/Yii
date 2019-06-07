@@ -54,6 +54,8 @@ YiiAsset::register($this);
             'responsible_id',
             'deadline',
             'status_id',
+            'created',
+            'updated'
         ],
 //        'options' => [
 //            'tag' => 'div',

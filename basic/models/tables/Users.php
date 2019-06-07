@@ -2,8 +2,9 @@
 
 namespace app\models\tables;
 
-use Yii;
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "users".
@@ -11,6 +12,9 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property string $username
  * @property string $password
+ * @property string $email
+ * @property string $created
+ * @property string $updated
  *
  * @property Tasks[] $tasks
  * @property Tasks[] $tasks0
@@ -34,8 +38,9 @@ class Users extends ActiveRecord
     {
         return [
 //            [['username', 'password'], 'required', 'on' => static::SCENARIO_AUTH],
-            [['username', 'password'], 'required'],
-            [['username', 'password'], 'string', 'max' => 50],
+            [['username', 'password', 'email'], 'required'],
+            [['email'], 'email'],
+            [['username', 'password', 'email'], 'string', 'max' => 50],
         ];
     }
 
@@ -48,6 +53,7 @@ class Users extends ActiveRecord
             'id' => 'ID',
             'username' => 'Username',
             'password' => 'Password',
+            'email' => 'Email',
         ];
     }
 
@@ -74,9 +80,22 @@ class Users extends ActiveRecord
 //                'username' => 'login',
                 'username',
                 'id',
-                'password'
+                'password',
+                'email'
             ];
         }
         return parent::fields();
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new Expression('NOW()'),
+            ],
+        ];
     }
 }
