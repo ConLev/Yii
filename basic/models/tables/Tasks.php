@@ -2,7 +2,6 @@
 
 namespace app\models\tables;
 
-use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -58,9 +57,9 @@ class Tasks extends ActiveRecord
             'name' => 'Name',
             'description' => 'Description',
             'creator_id' => 'Creator ID',
-            'responsible_id' => 'Responsible ID',
+            'responsible_id' => 'Responsible',
             'deadline' => 'Deadline',
-            'status_id' => 'Status ID',
+            'status_id' => 'Status',
             'created' => 'Created',
             'updated' => 'Updated'
         ];
@@ -85,7 +84,7 @@ class Tasks extends ActiveRecord
     {
         return [
             [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created',
                 'updatedAtAttribute' => 'updated',
                 'value' => new Expression('NOW()'),
