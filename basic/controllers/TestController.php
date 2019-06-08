@@ -21,7 +21,7 @@ class TestController extends Controller
         $model = new RegisterUserForm([
             'username' => 'vasechkin',
             'password' => '123456789',
-//            'email' => 'vasya@test.ru',
+            'email' => 'vasya@test.ru',
         ]);
 
         /* $model->on(

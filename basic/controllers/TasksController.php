@@ -18,8 +18,8 @@ class TasksController extends Controller
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
-    public function one($id)
+    public function actionOne($id)
     {
-
+        return $this->render("one", ['model' => Tasks::findOne($id)]);
     }
 }

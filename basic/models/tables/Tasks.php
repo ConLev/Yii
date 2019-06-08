@@ -2,7 +2,10 @@
 
 namespace app\models\tables;
 
+use Yii;
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "tasks".
@@ -14,6 +17,8 @@ use yii\db\ActiveRecord;
  * @property int $responsible_id
  * @property string $deadline
  * @property int $status_id
+ * @property string $created
+ * @property string $updated
  *
  * @property int $status
  * @property $creator
@@ -37,7 +42,7 @@ class Tasks extends ActiveRecord
         return [
             [['name'], 'required'],
             [['creator_id', 'responsible_id', 'status_id'], 'integer'],
-            [['deadline'], 'safe'],
+            [['deadline', 'created', 'updated'], 'safe'],
             [['name'], 'string', 'max' => 50],
             [['description'], 'string', 'max' => 255],
         ];
@@ -56,6 +61,8 @@ class Tasks extends ActiveRecord
             'responsible_id' => 'Responsible ID',
             'deadline' => 'Deadline',
             'status_id' => 'Status ID',
+            'created' => 'Created',
+            'updated' => 'Updated'
         ];
     }
 
@@ -72,5 +79,17 @@ class Tasks extends ActiveRecord
     public function getResponsible()
     {
         return $this->hasOne(Users::class, ['id' => 'responsible_id']);
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new Expression('NOW()'),
+            ],
+        ];
     }
 }
