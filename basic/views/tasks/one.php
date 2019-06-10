@@ -1,5 +1,8 @@
 <?php
 
+use app\models\tables\TaskStatuses;
+use app\models\tables\Users;
+use yii\helpers\ArrayHelper;
 use \yii\widgets\ActiveForm;
 use \yii\helpers\Url;
 use \yii\helpers\Html;
@@ -7,14 +10,26 @@ use \yii\helpers\Html;
 ?>
 <div class="task-edit">
     <div class="task-main">
-        <?php $form = ActiveForm::begin(['action' => Url::to(['task/save', 'id' => $model->id])]); ?>
+        <?php $form = ActiveForm::begin(['action' => Url::to(['tasks/save', 'id' => $model->id])]); ?>
         <?= $form->field($model, 'name')->textInput(); ?>
         <div class="row">
             <div class="col-lg-4">
-                <?= $form->field($model, 'status') ?>
+                <?php
+                // получаем все статусы
+                $tasks = TaskStatuses::find()->all();
+                // формируем массив, с ключем равным полю 'id' и значением равным полю 'name'
+                $items_tasks = ArrayHelper::map($tasks, 'id', 'name');
+                ?>
+                <?= $form->field($model, 'status_id')->dropDownList($items_tasks); ?>
             </div>
             <div class="col-lg-4">
-                <?= $form->field($model, 'responsible_id') ?>
+                <?php
+                // получаем всех пользователей
+                $users = Users::find()->all();
+                // формируем массив, с ключем равным полю 'id' и значением равным полю 'username'
+                $items_users = ArrayHelper::map($users, 'id', 'username');
+                ?>
+                <?= $form->field($model, 'responsible_id')->dropDownList($items_users); ?>
             </div>
             <div class="col-lg-4">
                 <?= $form->field($model, 'deadline')

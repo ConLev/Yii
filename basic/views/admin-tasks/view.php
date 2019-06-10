@@ -33,22 +33,72 @@ YiiAsset::register($this);
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
+    <?=
+
+    /* $key = "task" . $model->id;
+     if ($this->beginCache($key, [
+         'duration' => 10
+     ])) {
+         echo DetailView::widget([
+             'model' => $model,
+             'attributes' => [
+                 'id',
+                 'name',
+                 'description:html',
+                 'creator_id',
+                 'responsible_id',
+                 'deadline',
+                 'status_id',
+                 'created',
+                 'updated'
+             ],
+         ]);
+         $this->endCache();
+     } */
+
+    /*  $key = "task";
+      if ($this->beginCache($key, [
+          'duration' => 20,
+          //'enabled' => false
+          'variations' => [$model->id, Yii::$app->language],
+          // 'dependency' => [
+             // 'class' => \yii\caching\DbDependency::class,
+             // 'sql' => "...."
+          // ]
+      ])) {
+          echo DetailView::widget([
+              'model' => $model,
+              'attributes' => [
+                  'id',
+                  'name',
+                  'description:html',
+                  'creator_id',
+                  'responsible_id',
+                  'deadline',
+                  'status_id',
+                  'created',
+                  'updated'
+              ],
+          ]);
+          $this->endCache();
+      } */
+
+    DetailView::widget([
         'model' => $model,
-//        'template' => '<div>{label} : {value}</div>',
+        //        'template' => '<div>{label} : {value}</div>',
         'attributes' => [
             'id',
             'name',
-//            [
-//                'label' => 'doublename',
-//                'attribute' => 'name'
-//            ],
-//            [
-//                'label' => 'status',
-//                'value' => $model->status->name,
-//                'format' => 'html'
-//            ],
-//            'description',
+            //            [
+            //                'label' => 'doublename',
+            //                'attribute' => 'name'
+            //            ],
+            //            [
+            //                'label' => 'status',
+            //                'value' => $model->status->name,
+            //                'format' => 'html'
+            //            ],
+            //            'description',
             'description:html',
             'creator_id',
             'responsible_id',
@@ -57,9 +107,9 @@ YiiAsset::register($this);
             'created',
             'updated'
         ],
-//        'options' => [
-//            'tag' => 'div',
-//        ]
+        //        'options' => [
+        //            'tag' => 'div',
+        //        ]
     ]) ?>
 
 </div>
