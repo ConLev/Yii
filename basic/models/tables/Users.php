@@ -98,4 +98,12 @@ class Users extends ActiveRecord
             ],
         ];
     }
+
+    public static function getUsersList()
+    {
+        return static::find()
+            ->select(['username'])
+            ->indexBy('id')
+            ->column();
+    }
 }

@@ -50,4 +50,12 @@ class TaskStatuses extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tasks::className(), ['status_id' => 'id']);
     }
+
+    public static function getStatusesList()
+    {
+        return static::find()
+            ->select(['name'])
+            ->indexBy('id')
+            ->column();
+    }
 }
