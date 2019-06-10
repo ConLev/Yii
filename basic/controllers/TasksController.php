@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\tables\TaskStatuses;
+use app\models\tables\Users;
 use Yii;
 use app\models\tables\Tasks;
 use yii\data\ActiveDataProvider;
@@ -13,15 +15,40 @@ class TasksController extends Controller
     {
 //        return $this->render('index');
 
+        /* $month = 6;
+        $query = Tasks::find();
+        if ($month) {
+            $query->andWhere("MONTH(created) = ($month)");
+        } */
+
         $dataProvider = new ActiveDataProvider([
             'query' => Tasks::find()
+//            'query' => $query
         ]);
+
+        /* Yii::$app->db->cache(function () use ($dataProvider) {
+             return $dataProvider->prepare();
+         }); */
+
+        /* $statusesList =
+             TaskStatuses::find()
+                 ->select(['name'])
+                 ->asArray()
+                 ->indexBy('id')
+                 ->column();
+         var_dump($statusesList);
+         exit; */
+
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     public function actionOne($id)
     {
-        return $this->render("one", ['model' => Tasks::findOne($id)]);
+        return $this->render("one", [
+            'model' => Tasks::findOne($id),
+            'statusesList' => TaskStatuses::getStatusesList(),
+            'usersList' => Users::getUsersList()
+        ]);
     }
 
     public function actionSave($id)
