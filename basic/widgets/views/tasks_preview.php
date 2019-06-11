@@ -19,8 +19,12 @@ use yii\helpers\Url;
             <div class="task-preview-user"><?= 'Исполнитель: ', $model->responsible->username ?></div>
             <div class="task-preview-content"><?= 'Срок исполнения: ', $model->deadline ?></div>
             <div class="task-preview-content"><?= 'Статус задачи: ', $model->status->name ?></div>
+            <div class="task-preview-content"><img src="<?= $model->images->task_image ?>" alt="img"></div>
+            <!--            <div class="task-preview-content">-->
+            <? //= 'Комментарии: ', $model->comments->task_comment ?><!--</div>-->
         </div>
         <?php if ($linked): ?>
     </a>
 <? endif; ?>
+
 </div>

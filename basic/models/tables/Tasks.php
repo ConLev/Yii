@@ -5,6 +5,7 @@ namespace app\models\tables;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "tasks".
@@ -22,9 +23,15 @@ use yii\db\Expression;
  * @property int $status
  * @property $creator
  * @property $responsible
+ * @property $images
+ * @property $comments
  */
 class Tasks extends ActiveRecord
 {
+    /** @var UploadedFile */
+    public $upload;
+    public $comments;
+
     /**
      * {@inheritdoc}
      */
@@ -79,6 +86,17 @@ class Tasks extends ActiveRecord
     {
         return $this->hasOne(Users::class, ['id' => 'responsible_id']);
     }
+
+    public function getImages()
+    {
+        // д.б. ['task_id' => 'id']
+        return $this->hasOne(TasksImages::class, ['id' => 'creator_id']);
+    }
+
+//    public function getComments()
+//    {
+//        return $this->hasOne(TasksComments::class, ['id' => 'creator_id']);
+//    }
 
     public function behaviors()
     {
