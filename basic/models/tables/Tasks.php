@@ -2,6 +2,7 @@
 
 namespace app\models\tables;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -54,7 +55,7 @@ class Tasks extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => Yii::t('app', 'task_name'),
             'description' => 'Description',
             'creator_id' => 'Creator ID',
             'responsible_id' => 'Responsible',
@@ -78,6 +79,16 @@ class Tasks extends ActiveRecord
     public function getResponsible()
     {
         return $this->hasOne(Users::class, ['id' => 'responsible_id']);
+    }
+
+    public function getTaskComments()
+    {
+        return $this->hasMany(TaskComments::class, ['task_id' => 'id']);
+    }
+
+    public function getTaskAttachments()
+    {
+        return $this->hasMany(TaskAttachments::class, ['task_id' => 'id']);
     }
 
     public function behaviors()

@@ -2,12 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\forms\TaskAttachmentsAddForm;
+use app\models\tables\TaskComments;
 use app\models\tables\TaskStatuses;
 use app\models\tables\Users;
 use Yii;
 use app\models\tables\Tasks;
+use yii\base\Exception;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class TasksController extends Controller
 {
@@ -47,11 +51,14 @@ class TasksController extends Controller
         return $this->render("one", [
             'model' => Tasks::findOne($id),
             'statusesList' => TaskStatuses::getStatusesList(),
-            'usersList' => Users::getUsersList()
+            'usersList' => Users::getUsersList(),
+            'taskCommentForm' => new TaskComments(),
+            'taskAttachmentForm' => new TaskAttachmentsAddForm(),
+            'userId' => Yii::$app->user->id,
         ]);
     }
 
-    public function actionSave($id)
+    /* public function actionSave($id)
     {
         $task = Tasks::findOne($id);
 
@@ -60,5 +67,45 @@ class TasksController extends Controller
             return $this->redirect(['index']);
         }
         return $this->render('one', ['task' => Tasks::findOne($id),]);
+    } */
+
+    public function actionSave($id)
+    {
+
+        if ($model = Tasks::findOne($id)) {
+            $model->load(Yii::$app->request->post());
+            $model->save();
+            Yii::$app->session->setFlash('success', "Отредактировано");
+        } else {
+            Yii::$app->session->setFlash('error', "Ошибка!");
+        }
+        $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionAddComment()
+    {
+        $model = new TaskComments();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', "Комментарий добавлен");
+        } else {
+            Yii::$app->session->setFlash('error', "Ошибка!");
+        }
+        $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function actionAddAttachment()
+    {
+        $model = new TaskAttachmentsAddForm();
+        $model->load(Yii::$app->request->post());
+        $model->attachment = UploadedFile::getInstance($model, 'attachment');
+        if ($model->save()) {
+            Yii::$app->session->setFlash('success', "Файл добавлен");
+        } else {
+            Yii::$app->session->setFlash('error', "Ошибка!");
+        }
+        $this->redirect(Yii::$app->request->referrer);
     }
 }
