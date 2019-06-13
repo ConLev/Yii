@@ -56,11 +56,11 @@ class Tasks extends ActiveRecord
         return [
             'id' => 'ID',
             'name' => Yii::t('app', 'task_name'),
-            'description' => 'Description',
+            'description' => Yii::t('app', 'task_description'),
             'creator_id' => 'Creator ID',
-            'responsible_id' => 'Responsible',
-            'deadline' => 'Deadline',
-            'status_id' => 'Status',
+            'responsible_id' => Yii::t('app', 'task_responsible'),
+            'deadline' => Yii::t('app', 'task_deadline'),
+            'status_id' => Yii::t('app', 'task_status'),
             'created' => 'Created',
             'updated' => 'Updated'
         ];

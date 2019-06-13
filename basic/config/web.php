@@ -60,14 +60,18 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+//            'enableStrictParsing' => true,
             'rules' => [
+                'tasks-list' => 'tasks/index',
+//                'task/<id>' => 'tasks/one',
+                'task/<id:\d+>' => 'tasks/one', // number
+//                'task/<id:\w+>' => 'tasks/one', // string
+                'task/<id>/save' => 'tasks/save', // Url::to(['tasks/save', 'id' => $model->id])
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
