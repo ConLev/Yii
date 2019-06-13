@@ -2,6 +2,7 @@
 
 namespace app\models\tables;
 
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -48,7 +49,7 @@ class TaskComments extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'content' => 'Content',
+            'content' => Yii::t('app', 'task_content'),
             'task_id' => 'Task ID',
             'user_id' => 'User ID',
         ];

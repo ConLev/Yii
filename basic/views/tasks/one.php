@@ -57,13 +57,14 @@ use \yii\helpers\Html;
     </div>
 </div>
 <div class="attachments">
-    <h3>Вложения</h3>
+    <h3><?= Yii::t('app', 'task_attachments') ?></h3>
     <?php $form = ActiveForm::begin([
         'action' => Url::to(['tasks/add-attachment']),
         'options' => ['class' => "form-inline"]
     ]); ?>
     <?= $form->field($taskAttachmentForm, 'taskId')->hiddenInput(['value' => $model->id])->label(false); ?>
-    <?= $form->field($taskAttachmentForm, 'attachment')->fileInput(); ?>
+    <?= $form->field($taskAttachmentForm, 'attachment')->fileInput()
+        ->label(Yii::t('app', 'task_attachments')); ?>
     <?= Html::submitButton("Добавить", ['class' => 'btn btn-default']); ?>
     <? ActiveForm::end() ?>
     <hr>
@@ -74,7 +75,7 @@ use \yii\helpers\Html;
             </a>
         <?php endforeach; ?>
     </div>
-    <h3>Комментарии</h3>
+    <h3><?= Yii::t('app', 'task_comments') ?></h3>
     <?php $form = ActiveForm::begin(['action' => Url::to(['tasks/add-comment'])]); ?>
     <?= /** @var TasksController $userId */
     $form->field($taskCommentForm, 'user_id')->hiddenInput(['value' => $userId])->label(false); ?>
