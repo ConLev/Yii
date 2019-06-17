@@ -61,6 +61,27 @@ class TaskController extends Controller
         }
     }
 
+    public function actionDeadline()
+    {
+        /* $tasks = Tasks::find()
+             ->where("DATEDIFF (NOW(), tasks.deadline) <= 1")
+             ->with('responsible')
+             ->all(); */
+
+        /** @var Tasks[] $tasks */
+        $tasks = Tasks::findDeadline();
+
+        foreach ($tasks as $task) {
+            $responsible = $task->responsible;
+            Yii::$app->mailer->compose()
+                ->setTo($responsible->email)
+                ->setFrom('Yii-admin@test.ru')
+                ->setSubject('Deadline')
+                ->setTextBody("Dear {$responsible->username}, new task {$task->id} created")
+                ->send();
+        }
+    }
+
     // php yii task/handler
 
     public function actionHandler()

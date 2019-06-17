@@ -66,6 +66,14 @@ class Tasks extends ActiveRecord
         ];
     }
 
+    public static function findDeadline()
+    {
+        static::find()
+            ->where("DATEDIFF(NOW(), tasks.deadline) <= 1")
+            ->with('responsible')
+            ->all();
+    }
+
     public function getStatus()
     {
         return $this->hasOne(TaskStatuses::class, ['id' => 'status_id']);
