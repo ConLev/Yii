@@ -10,11 +10,31 @@ use Yii;
 use app\models\tables\Tasks;
 use yii\base\Exception;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
 class TasksController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['one'],
+                'rules' => [
+                    [
+                        'actions' => ['one'],
+                        'allow' => true,
+//                        'roles' => ['admin'],
+                        'roles' => ['TaskDelete'],
+                    ],
+                ],
+//                'denyCallback' => function () {}
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
 //        return $this->render('index');
