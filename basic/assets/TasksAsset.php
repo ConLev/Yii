@@ -5,12 +5,13 @@ namespace app\assets;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class TaskAsset extends AssetBundle
+class TasksAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
     public $css = [
+        'css/tasks.css'
     ];
 
     public $js = [

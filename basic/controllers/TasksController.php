@@ -21,13 +21,19 @@ class TasksController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['one'],
+                'only' => ['one', 'index'],
                 'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                     [
                         'actions' => ['one'],
                         'allow' => true,
 //                        'roles' => ['admin'],
-                        'roles' => ['TaskDelete'],
+//                        'roles' => ['TaskDelete'],
+                        'roles' => ['@'],
                     ],
                 ],
 //                'denyCallback' => function () {}

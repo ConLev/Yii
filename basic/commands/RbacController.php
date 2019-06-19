@@ -38,6 +38,6 @@ class RbacController extends Controller
         $am->addChild($moder, $permissionTaskUpdate);
 
         $am->assign($admin, 1);
-        $am->assign($moder, 2);
+        $am->assign($moder, 8);
     }
 }

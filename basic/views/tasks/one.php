@@ -1,6 +1,6 @@
 <?php
 
-use app\assets\TaskAsset;
+use app\assets\TasksAsset;
 use app\controllers\TasksController;
 use app\models\forms\TaskAttachmentsAddForm;
 use app\models\tables\TaskComments;
@@ -8,14 +8,14 @@ use app\models\tables\TaskStatuses;
 use app\models\tables\Users;
 use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
-use yii\web\View;
+//use yii\web\View;
 use \yii\widgets\ActiveForm;
 use \yii\helpers\Url;
 use \yii\helpers\Html;
 
 /** @var TaskComments $taskCommentForm */
 /** @var TaskAttachmentsAddForm $taskAttachmentForm */
-//TaskAsset::register($this);
+TasksAsset::register($this);
 
 /* $script = <<<SCRIPT
 $(function () {
@@ -71,12 +71,14 @@ SCRIPT; */
                 <?= $form->field($model, 'description')
                     ->textarea() ?>
             </div>
-            <?= Html::submitButton("Сохранить", ['class' => 'btn btn-success']); ?>
+            <?php if (Yii::$app->user->can('TaskUpdate')): ?>
+                <?= Html::submitButton("Сохранить", ['class' => 'btn btn-success']); ?>
+            <?php endif ?>
             <? ActiveForm::end() ?>
             <!--        <button class="push-me-btn">Push</button>-->
         </div>
     </div>
-<?php if (Yii::$app->user->can('TaskDelete')): ?>
+<?php //if (Yii::$app->user->can('TaskDelete')): ?>
     <div class="attachments">
         <h3><?= Yii::t('app', 'task_attachments') ?></h3>
         <?php $form = ActiveForm::begin([
@@ -111,4 +113,4 @@ SCRIPT; */
             <?php endforeach; ?>
         </div>
     </div>
-<?php endif;
+<?php //endif;
