@@ -16,7 +16,9 @@ use app\widgets\TasksPreview;
 use yii\data\ActiveDataProvider;
 //use yii\helpers\Url;
 use yii\widgets\ListView;
+use app\assets\TasksAsset;
 
+TasksAsset::register($this);
 try {
     echo ListView::widget([
         'dataProvider' => $dataProvider,
