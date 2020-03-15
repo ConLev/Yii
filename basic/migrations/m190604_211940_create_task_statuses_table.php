@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `task_statuses`.
  */
-class m190119_211940_create_task_statuses_table extends Migration
+class m190604_211940_create_task_statuses_table extends Migration
 {
     protected $tableName = 'task_statuses';
 
@@ -41,6 +41,9 @@ class m190119_211940_create_task_statuses_table extends Migration
      */
     public function safeDown()
     {
+        $taskTable = \app\models\tables\Tasks::tableName();
+
+        $this->dropForeignKey('fk_task_statuses', $taskTable);
         $this->dropTable($this->tableName);
     }
 }
